@@ -14,7 +14,7 @@ struct ToDo {
     var isComplete : Bool
     var dueDate :  Date
     var notes : String?
-    var photos : [UIImage]?
+    var photos : UIImage?
     
     static func loadToDos() -> [ToDo]?{
         return nil

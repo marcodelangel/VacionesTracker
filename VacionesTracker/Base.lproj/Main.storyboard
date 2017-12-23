@@ -19,13 +19,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" id="S85-1z-nTH">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" id="S85-1z-nTH" customClass="ToDoCell" customModule="VacionesTracker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S85-1z-nTH" id="i5L-Wz-EfM">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ygv-yr-UUr">
+                                            <rect key="frame" x="56" y="11" width="295" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2vt-Dp-1Rw">
+                                            <rect key="frame" x="8" y="1" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="R29-mK-iWP"/>
+                                                <constraint firstAttribute="height" constant="40" id="zse-Lb-EC7"/>
+                                            </constraints>
+                                            <state key="normal" image="Unchecked"/>
+                                            <state key="selected" image="check-icon-vector-10850982"/>
+                                            <connections>
+                                                <action selector="doneButtonIsTapped:" destination="S85-1z-nTH" eventType="touchUpInside" id="r87-iB-efO"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Ygv-yr-UUr" firstAttribute="leading" secondItem="2vt-Dp-1Rw" secondAttribute="trailing" constant="8" id="74S-tz-EYF"/>
+                                        <constraint firstItem="2vt-Dp-1Rw" firstAttribute="centerY" secondItem="i5L-Wz-EfM" secondAttribute="centerY" id="7zZ-Bs-FGh"/>
+                                        <constraint firstItem="Ygv-yr-UUr" firstAttribute="centerY" secondItem="i5L-Wz-EfM" secondAttribute="centerY" id="8xK-MP-LuN"/>
+                                        <constraint firstItem="2vt-Dp-1Rw" firstAttribute="leading" secondItem="i5L-Wz-EfM" secondAttribute="leading" constant="8" id="OYF-Fe-UyE"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Ygv-yr-UUr" secondAttribute="trailing" constant="8" id="fWp-e9-pWL"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dondeButton" destination="2vt-Dp-1Rw" id="C8V-xG-ia0"/>
+                                    <outlet property="todoLabel" destination="Ygv-yr-UUr" id="oYT-89-Ngk"/>
+                                    <segue destination="FCx-Ym-pLZ" kind="show" identifier="showDetails" id="10K-Bv-089"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -73,7 +105,7 @@
                                                         <action selector="textEditingChanged:" destination="FCx-Ym-pLZ" eventType="editingChanged" id="TsK-eC-FVS"/>
                                                     </connections>
                                                 </textField>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MIV-It-6H3">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MIV-It-6H3">
                                                     <rect key="frame" x="9" y="2" width="40" height="40.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="7yE-fh-fn3"/>
@@ -88,11 +120,10 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="mYe-L4-sL2" secondAttribute="trailing" id="Cii-5u-XYj"/>
-                                                <constraint firstItem="MIV-It-6H3" firstAttribute="top" secondItem="b9r-OS-4t8" secondAttribute="top" constant="2" id="Mpn-VV-pGi"/>
                                                 <constraint firstItem="mYe-L4-sL2" firstAttribute="leading" secondItem="MIV-It-6H3" secondAttribute="trailing" constant="15" id="MtL-dq-8aW"/>
+                                                <constraint firstItem="MIV-It-6H3" firstAttribute="centerY" secondItem="b9r-OS-4t8" secondAttribute="centerY" id="Phx-O1-CNd"/>
                                                 <constraint firstItem="MIV-It-6H3" firstAttribute="leading" secondItem="b9r-OS-4t8" secondAttribute="leadingMargin" constant="-7" id="n6U-IK-I1N"/>
                                                 <constraint firstItem="mYe-L4-sL2" firstAttribute="top" secondItem="b9r-OS-4t8" secondAttribute="top" id="u2Z-Tu-fAn"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="MIV-It-6H3" secondAttribute="bottom" constant="-9.5" id="uQT-Hg-QzY"/>
                                                 <constraint firstAttribute="bottom" secondItem="mYe-L4-sL2" secondAttribute="bottom" id="yFk-dc-DoE"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -155,10 +186,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HZf-zH-pon">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" text="Important stuff to remember" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HZf-zH-pon">
                                                     <rect key="frame" x="16" y="11" width="343" height="178"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
@@ -202,7 +232,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Abz-a3-wxH">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vacation-final" translatesAutoresizingMaskIntoConstraints="NO" id="Abz-a3-wxH">
                                                     <rect key="frame" x="16" y="11" width="343" height="178"/>
                                                 </imageView>
                                             </subviews>
@@ -225,12 +255,12 @@
                     <navigationItem key="navigationItem" title="New Vacation ToDo" largeTitleDisplayMode="never" id="Tje-sw-FZJ">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="cpJ-Jc-TOA">
                             <connections>
-                                <segue destination="aKo-yd-Tc1" kind="unwind" identifier="SaveUnwindSegue" unwindAction="unwindToDoTableWithSegue:" id="1t0-5b-3T0"/>
+                                <segue destination="aKo-yd-Tc1" kind="unwind" identifier="" unwindAction="unwindToDoTableWithSegue:" id="1t0-5b-3T0"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Hea-Xl-fJA">
                             <connections>
-                                <segue destination="aKo-yd-Tc1" kind="unwind" unwindAction="unwindToDoTableWithSegue:" id="CJC-Kh-ju1"/>
+                                <segue destination="aKo-yd-Tc1" kind="unwind" identifier="SaveUnwindSegue" unwindAction="unwindToDoTableWithSegue:" id="CJC-Kh-ju1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -265,7 +295,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jur-Qz-gt5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1215" y="62"/>
+            <point key="canvasLocation" x="1235" y="641"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pVS-ap-ysK">
@@ -287,5 +317,9 @@
     <resources>
         <image name="Unchecked" width="44" height="44"/>
         <image name="check-icon-vector-10850982" width="238" height="250"/>
+        <image name="vacation-final" width="600" height="258"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="10K-Bv-089"/>
+    </inferredMetricsTieBreakers>
 </document>

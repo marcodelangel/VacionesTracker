@@ -20,12 +20,22 @@ class DetailToDTableViewController : UITableViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
+    var toDo : ToDo?
     var isPickerHidden = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let toDo = toDo {
+            navigationItem.title = "Vacation toDo"
+            titleTextField.text = toDo.tittle
+            doneButton.isSelected = toDo.isComplete
+            datePicker.date = toDo.dueDate
+            notesTextView.text = toDo.notes
+        } else {
+         datePicker.date = Date().addingTimeInterval(24*60*60)
+        }
         updateSaveButtonState()
-        datePicker.date = Date().addingTimeInterval(24*60*60)
         updateDueDateLabel(date: datePicker.date)
     }
     
@@ -63,6 +73,8 @@ class DetailToDTableViewController : UITableViewController {
             return isPickerHidden ? normalCellHeight : largeCellHeight
         case [2,0]:
             return largeCellHeight
+        case [3,1]:
+            return largeCellHeight
         default:
             return normalCellHeight
         }
@@ -78,5 +90,19 @@ class DetailToDTableViewController : UITableViewController {
         default:
             break
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        guard segue.identifier == "SaveUnwindSegue" else {return}
+        
+        let title = titleTextField.text!
+        let isCompleted = doneButton.isSelected
+        let date = datePicker.date
+        let notes = notesTextView.text
+        let image = imageView.image!
+        
+        toDo = ToDo(tittle: title, isComplete: isCompleted, dueDate: date, notes: notes, photos: image)
     }
 }

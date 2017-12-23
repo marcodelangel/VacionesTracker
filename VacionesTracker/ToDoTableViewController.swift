@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ToDoTableViewController: UITableViewController {
+class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
     
     var todos = [ToDo]()
 
@@ -27,6 +27,15 @@ class ToDoTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    func checkMarkTapped(sender: ToDoCell) {
+        if let indexPath = tableView.indexPath(for: sender) {
+            var todo = todos[indexPath.row]
+            todo.isComplete = !todo.isComplete
+            todos[indexPath.row] = todo
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+    }
 
     // MARK: - Table view data source
 
@@ -41,10 +50,14 @@ class ToDoTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as? ToDoCell else {
+            fatalError("Not working")}
         
-        cell.textLabel?.text = todos[indexPath.row].tittle
-
+        let todo = todos[indexPath.row]
+        cell.todoLabel.text = todo.tittle
+        cell.dondeButton.isSelected = todo.isComplete
+        cell.delegate = self
+        
         return cell
     }
 
@@ -59,29 +72,28 @@ class ToDoTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "showDetails" {
+            let destination = segue.destination as! DetailToDTableViewController
+            let indexPath = tableView.indexPathForSelectedRow!
+            let selectedToDo = todos[indexPath.row]
+            destination.toDo = selectedToDo
+        }
     }
-
     @IBAction func unwindToDoTable(segue: UIStoryboardSegue){
-    
+        guard segue.identifier == "SaveUnwindSegue" else {return}
+        let sourceViewController = segue.source as! DetailToDTableViewController
+        if let todo = sourceViewController.toDo {
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                todos[selectedIndexPath.row] = todo
+                tableView.reloadRows(at: [selectedIndexPath], with: .none)
+            } else {
+                let newIndexPath = IndexPath(row:todos.count, section: 0)
+                todos.append(todo)
+                tableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
+        }
     }
-    
 }
