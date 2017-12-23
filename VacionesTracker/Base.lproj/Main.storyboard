@@ -63,25 +63,36 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mYe-L4-sL2">
-                                                    <rect key="frame" x="68" y="0.0" width="307" height="44"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Next thing to do" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mYe-L4-sL2">
+                                                    <rect key="frame" x="64" y="0.0" width="311" height="43.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="returnPressed:" destination="FCx-Ym-pLZ" eventType="primaryActionTriggered" id="dWO-4Y-JGV"/>
+                                                        <action selector="textEditingChanged:" destination="FCx-Ym-pLZ" eventType="editingChanged" id="TsK-eC-FVS"/>
+                                                    </connections>
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MIV-It-6H3">
-                                                    <rect key="frame" x="16" y="8" width="44" height="17"/>
+                                                    <rect key="frame" x="9" y="2" width="40" height="40.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="7yE-fh-fn3"/>
+                                                        <constraint firstAttribute="height" constant="40" id="kdR-wJ-fzZ"/>
+                                                    </constraints>
                                                     <state key="normal" image="Unchecked"/>
                                                     <state key="selected" image="check-icon-vector-10850982"/>
+                                                    <connections>
+                                                        <action selector="buttonIsSelected:" destination="FCx-Ym-pLZ" eventType="touchUpInside" id="k4a-S3-cGh"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="mYe-L4-sL2" secondAttribute="trailing" id="Cii-5u-XYj"/>
-                                                <constraint firstItem="MIV-It-6H3" firstAttribute="top" secondItem="b9r-OS-4t8" secondAttribute="top" constant="8" id="Mpn-VV-pGi"/>
-                                                <constraint firstItem="mYe-L4-sL2" firstAttribute="leading" secondItem="MIV-It-6H3" secondAttribute="trailing" constant="8" id="MtL-dq-8aW"/>
-                                                <constraint firstItem="MIV-It-6H3" firstAttribute="leading" secondItem="b9r-OS-4t8" secondAttribute="leadingMargin" id="n6U-IK-I1N"/>
+                                                <constraint firstItem="MIV-It-6H3" firstAttribute="top" secondItem="b9r-OS-4t8" secondAttribute="top" constant="2" id="Mpn-VV-pGi"/>
+                                                <constraint firstItem="mYe-L4-sL2" firstAttribute="leading" secondItem="MIV-It-6H3" secondAttribute="trailing" constant="15" id="MtL-dq-8aW"/>
+                                                <constraint firstItem="MIV-It-6H3" firstAttribute="leading" secondItem="b9r-OS-4t8" secondAttribute="leadingMargin" constant="-7" id="n6U-IK-I1N"/>
                                                 <constraint firstItem="mYe-L4-sL2" firstAttribute="top" secondItem="b9r-OS-4t8" secondAttribute="top" id="u2Z-Tu-fAn"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="MIV-It-6H3" secondAttribute="bottom" constant="8" id="uQT-Hg-QzY"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="MIV-It-6H3" secondAttribute="bottom" constant="-9.5" id="uQT-Hg-QzY"/>
                                                 <constraint firstAttribute="bottom" secondItem="mYe-L4-sL2" secondAttribute="bottom" id="yFk-dc-DoE"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -117,6 +128,9 @@
                                                     <date key="date" timeIntervalSinceReferenceDate="535744218.618182">
                                                         <!--2017-12-23 17:50:18 +0000-->
                                                     </date>
+                                                    <connections>
+                                                        <action selector="datePickerChanged:" destination="FCx-Ym-pLZ" eventType="primaryActionTriggered" id="hse-z8-Erv"/>
+                                                    </connections>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
@@ -228,6 +242,7 @@
                         <outlet property="imagePickerButton" destination="gOq-HG-y1p" id="Oe2-ME-NX4"/>
                         <outlet property="imageView" destination="Abz-a3-wxH" id="dyC-Zw-de1"/>
                         <outlet property="notesTextView" destination="HZf-zH-pon" id="BDX-a0-p7f"/>
+                        <outlet property="saveButton" destination="Hea-Xl-fJA" id="kh8-sc-aoj"/>
                         <outlet property="titleTextField" destination="mYe-L4-sL2" id="7yy-fx-kdj"/>
                     </connections>
                 </tableViewController>

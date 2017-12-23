@@ -25,4 +25,11 @@ struct ToDo {
         let todo2 = ToDo(tittle: "Two", isComplete: false, dueDate: Date(), notes: nil, photos: nil)
         return[todo1, todo2]
     }
+    
+    static let dueDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.dateStyle = .short
+        return formatter
+    }()
 }
