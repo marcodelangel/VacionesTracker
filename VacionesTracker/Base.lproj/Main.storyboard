@@ -221,6 +221,15 @@
                         </barButtonItem>
                     </navigationItem>
                     <size key="freeformSize" width="375" height="1200"/>
+                    <connections>
+                        <outlet property="datePicker" destination="Bni-xn-B4G" id="9iC-fb-Stm"/>
+                        <outlet property="doneButton" destination="MIV-It-6H3" id="LNI-dH-6Rb"/>
+                        <outlet property="dueDateLabel" destination="64M-nn-KSd" id="oRV-go-OZB"/>
+                        <outlet property="imagePickerButton" destination="gOq-HG-y1p" id="Oe2-ME-NX4"/>
+                        <outlet property="imageView" destination="Abz-a3-wxH" id="dyC-Zw-de1"/>
+                        <outlet property="notesTextView" destination="HZf-zH-pon" id="BDX-a0-p7f"/>
+                        <outlet property="titleTextField" destination="mYe-L4-sL2" id="7yy-fx-kdj"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BOz-iA-kCZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="aKo-yd-Tc1" userLabel="Exit" sceneMemberID="exit"/>

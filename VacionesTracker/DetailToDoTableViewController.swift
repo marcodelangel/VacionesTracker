@@ -11,6 +11,14 @@ import UIKit
 
 class DetailToDTableViewController : UITableViewController {
     
+    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var dueDateLabel: UILabel!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet weak var imagePickerButton: UIButton!
+    @IBOutlet weak var imageView: UIImageView!
+    
 }
 
 
