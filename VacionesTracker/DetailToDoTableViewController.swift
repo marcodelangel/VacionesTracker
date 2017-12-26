@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class DetailToDTableViewController : UITableViewController {
+class DetailToDTableViewController : UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var titleTextField: UITextField!
@@ -32,6 +32,12 @@ class DetailToDTableViewController : UITableViewController {
             doneButton.isSelected = toDo.isComplete
             datePicker.date = toDo.dueDate
             notesTextView.text = toDo.notes
+            if let imageData = toDo.image {
+            let image = UIImage(data: imageData)
+            imageView.image = image
+            } else {
+                imageView.image = UIImage(contentsOfFile: "vacation-final")
+            }
         } else {
          datePicker.date = Date().addingTimeInterval(24*60*60)
         }
@@ -58,6 +64,37 @@ class DetailToDTableViewController : UITableViewController {
     
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
         updateDueDateLabel(date: datePicker.date)
+    }
+    
+    @IBAction func selectImage(_ sender: UIButton) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        
+        let alertController = UIAlertController(title: "Choose Image Source", message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: {action in imagePicker.sourceType = .camera
+                self.present(imagePicker, animated: true, completion: nil)
+            })
+            alertController.addAction(cameraAction)
+        }
+        
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            let photoLibraryAction = UIAlertAction(title: "Photo Librery", style: .default, handler: {action in imagePicker.sourceType = .photoLibrary
+                self.present(imagePicker, animated: true, completion: nil)
+            })
+            alertController.addAction(photoLibraryAction)
+        }
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imageView.image = selectedImage
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     func updateDueDateLabel(date: Date){
@@ -101,7 +138,9 @@ class DetailToDTableViewController : UITableViewController {
         let isCompleted = doneButton.isSelected
         let date = datePicker.date
         let notes = notesTextView.text
+        let image = imageView.image!
+        let imageData = UIImagePNGRepresentation(image)
         
-        toDo = ToDo(tittle: title, isComplete: isCompleted, dueDate: date, notes: notes, image: nil)
+        toDo = ToDo(tittle: title, isComplete: isCompleted, dueDate: date, notes: notes, image: imageData)
     }
 }
