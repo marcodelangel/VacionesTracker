@@ -101,8 +101,7 @@ class DetailToDTableViewController : UITableViewController {
         let isCompleted = doneButton.isSelected
         let date = datePicker.date
         let notes = notesTextView.text
-        let image = imageView.image!
         
-        toDo = ToDo(tittle: title, isComplete: isCompleted, dueDate: date, notes: notes, photos: image)
+        toDo = ToDo(tittle: title, isComplete: isCompleted, dueDate: date, notes: notes, image: nil)
     }
 }

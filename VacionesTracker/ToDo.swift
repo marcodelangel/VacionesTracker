@@ -9,20 +9,28 @@
 import Foundation
 import UIKit
 
-struct ToDo {
+struct ToDo : Codable {
     var tittle : String
     var isComplete : Bool
     var dueDate :  Date
     var notes : String?
-    var photos : UIImage?
+    var image : Data?
     
     static func loadToDos() -> [ToDo]?{
-        return nil
+        guard let codedToDos = try? Data(contentsOf: archiveURL) else {return nil}
+        let propertyListDecoder = PropertyListDecoder()
+        return try? propertyListDecoder.decode(Array<ToDo>.self, from: codedToDos)
+    }
+    
+    static func saveToDos(_ todos: [ToDo]){
+        let propertyListEncoder = PropertyListEncoder()
+        let codedToDos =  try? propertyListEncoder.encode(todos)
+        try? codedToDos?.write(to: archiveURL, options: .noFileProtection)
     }
     
     static func loadSampleTodos() -> [ToDo] {
-        let todo1 = ToDo(tittle: "One", isComplete: false, dueDate: Date(), notes: nil, photos: nil)
-        let todo2 = ToDo(tittle: "Two", isComplete: false, dueDate: Date(), notes: nil, photos: nil)
+        let todo1 = ToDo(tittle: "One", isComplete: false, dueDate: Date(), notes: nil, image: nil)
+        let todo2 = ToDo(tittle: "Two", isComplete: false, dueDate: Date(), notes: nil, image: nil)
         return[todo1, todo2]
     }
     
@@ -32,4 +40,8 @@ struct ToDo {
         formatter.dateStyle = .short
         return formatter
     }()
+    
+    static var documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let archiveURL = documentsDirectory.appendingPathComponent("todos").appendingPathExtension("plist")
+    
 }
